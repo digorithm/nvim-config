@@ -48,10 +48,10 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 
 -- next greatest remap ever : asbjornHaland
 -- leader y to yank to system clipboard.
-vim.keymap.set({"n", "v"}, "<leader>y", [["+y]])
+vim.keymap.set({ "n", "v" }, "<leader>y", [["+y]])
 vim.keymap.set("n", "<leader>Y", [["+Y]])
 
-vim.keymap.set({"n", "v"}, "<leader>d", [["_d]])
+vim.keymap.set({ "n", "v" }, "<leader>d", [["_d]])
 
 vim.keymap.set("n", "Q", "<nop>")
 vim.keymap.set("n", "<C-f>", "<cmd>silent !tmux neww tmux-sessionizer<CR>")
@@ -67,57 +67,59 @@ vim.keymap.set("n", "<leader>x", "<cmd>!chmod +x %<CR>", { silent = true })
 
 vim.api.nvim_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", { noremap = true, silent = true })
 -- Telescope jump to definition
-vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_definitions()<CR>",
+    { noremap = true, silent = true })
 
 -- Telescope jump to definition in a split window
-vim.api.nvim_set_keymap("n", "gds", "<cmd>lua require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' })<CR>", { noremap = true, silent = true })
+vim.api.nvim_set_keymap("n", "gds", "<cmd>lua require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' })<CR>"
+    , { noremap = true, silent = true })
 
 
 
 -- Plugins
 local ensure_packer = function()
-  local fn = vim.fn
-  local install_path = fn.stdpath('data')..'/site/pack/packer/start/packer.nvim'
-  if fn.empty(fn.glob(install_path)) > 0 then
-    fn.system({'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path})
-    vim.cmd [[packadd packer.nvim]]
-    return true
-  end
-  return false
+    local fn = vim.fn
+    local install_path = fn.stdpath('data') .. '/site/pack/packer/start/packer.nvim'
+    if fn.empty(fn.glob(install_path)) > 0 then
+        fn.system({ 'git', 'clone', '--depth', '1', 'https://github.com/wbthomason/packer.nvim', install_path })
+        vim.cmd [[packadd packer.nvim]]
+        return true
+    end
+    return false
 end
 
 local packer_bootstrap = ensure_packer()
 
 return require('packer').startup(function(use)
     use 'wbthomason/packer.nvim'
-    use({'nvim-treesitter/nvim-treesitter', run = ':TSUpdate'})
+    use({ 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' })
 
     use {
-	    'VonHeikemen/lsp-zero.nvim',
-	    requires = {
-		    -- LSP Support
-		    {'neovim/nvim-lspconfig'},
-		    {'williamboman/mason.nvim'},
-		    {'williamboman/mason-lspconfig.nvim'},
+        'VonHeikemen/lsp-zero.nvim',
+        requires = {
+            -- LSP Support
+            { 'neovim/nvim-lspconfig' },
+            { 'williamboman/mason.nvim' },
+            { 'williamboman/mason-lspconfig.nvim' },
 
-		    -- Autocompletion
-		    {'hrsh7th/nvim-cmp'},
-		    {'hrsh7th/cmp-buffer'},
-		    {'hrsh7th/cmp-path'},
-		    {'saadparwaiz1/cmp_luasnip'},
-		    {'hrsh7th/cmp-nvim-lsp'},
-		    {'hrsh7th/cmp-nvim-lua'},
+            -- Autocompletion
+            { 'hrsh7th/nvim-cmp' },
+            { 'hrsh7th/cmp-buffer' },
+            { 'hrsh7th/cmp-path' },
+            { 'saadparwaiz1/cmp_luasnip' },
+            { 'hrsh7th/cmp-nvim-lsp' },
+            { 'hrsh7th/cmp-nvim-lua' },
 
-		    -- Snippets
-		    {'L3MON4D3/LuaSnip'},
-		    {'rafamadriz/friendly-snippets'},
-	    }
+            -- Snippets
+            { 'L3MON4D3/LuaSnip' },
+            { 'rafamadriz/friendly-snippets' },
+        }
     }
 
     use {
         'nvim-telescope/telescope.nvim', tag = '0.1.0',
         -- or                            , branch = '0.1.x',
-        requires = { {'nvim-lua/plenary.nvim'} }
+        requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
     use('tpope/vim-fugitive')
@@ -152,8 +154,7 @@ return require('packer').startup(function(use)
     require('rust-tools').inlay_hints.enable()
     require('rust-tools').runnables.runnables()
 
-    use {'stevearc/dressing.nvim'}
-
+    use { 'stevearc/dressing.nvim' }
 
     use 'scrooloose/nerdtree'
 
@@ -176,7 +177,13 @@ return require('packer').startup(function(use)
 
     use "EdenEast/nightfox.nvim"
     use { "ellisonleao/gruvbox.nvim" }
-    use 'airblade/vim-gitgutter'
+    use {
+        'lewis6991/gitsigns.nvim',
+        -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
+    }
+
+    require('gitsigns').setup()
+
     use 'j-hui/fidget.nvim'
 
     use {
@@ -224,4 +231,3 @@ return require('packer').startup(function(use)
         require('packer').sync()
     end
 end)
-
