@@ -182,6 +182,7 @@ return require('packer').startup(function(use)
         -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
     }
 
+    -- Signs for git
     require('gitsigns').setup()
 
     use 'j-hui/fidget.nvim'
