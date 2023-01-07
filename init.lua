@@ -292,8 +292,12 @@ return require('packer').startup(function(use)
     wk.register({
         g = {
             name = "+Git",
+            o = {
+                name = "+Octo",
+                p = { name = "+Pull Request", l = { "<cmd>Octo pr list<cr>", "List" } },
+            },
             h = {
-                name = "+Github",
+                name = "+Github gh.nvim",
                 c = {
                     name = "+Commits",
                     c = { "<cmd>GHCloseCommit<cr>", "Close" },
@@ -339,6 +343,20 @@ return require('packer').startup(function(use)
             },
         },
     }, { prefix = "<leader>" })
+
+
+    -- Another github integration
+    use {
+        'pwntester/octo.nvim',
+        requires = {
+            'nvim-lua/plenary.nvim',
+            'nvim-telescope/telescope.nvim',
+            'kyazdani42/nvim-web-devicons',
+        },
+        config = function()
+            require "octo".setup()
+        end
+    }
 
     vim.cmd [[let g:gruvbox_material_background = 'soft']]
     vim.cmd([[ colorscheme gruvbox-material]])
