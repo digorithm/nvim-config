@@ -290,6 +290,9 @@ return require('packer').startup(function(use)
 
     local wk = require("which-key")
     wk.register({
+        m = {
+            "<cmd>:lua require('material.functions').find_style()<CR>", "Material theme style select",
+        },
         g = {
             name = "+Git",
             o = {
@@ -354,12 +357,71 @@ return require('packer').startup(function(use)
             'kyazdani42/nvim-web-devicons',
         },
         config = function()
-            require "octo".setup()
+            require "octo".setup({
+                mappings = {
+                    submit_win = {
+                        approve_review = { lhs = "<C-b>", desc = "approve review" },
+                        comment_review = { lhs = "<C-m>", desc = "comment review" },
+                        request_changes = { lhs = "<C-r>", desc = "request changes review" },
+                        close_review_tab = { lhs = "<C-c>", desc = "close review tab" },
+                    },
+                }
+            })
         end
     }
 
-    vim.cmd [[let g:gruvbox_material_background = 'soft']]
-    vim.cmd([[ colorscheme gruvbox-material]])
+    use "rebelot/kanagawa.nvim"
+    use "ajmwagar/vim-deus"
+    use 'navarasu/onedark.nvim'
+    use 'marko-cerovac/material.nvim'
+
+    -- Lua
+    require('onedark').setup {
+        style = 'warm'
+    }
+
+    --Lua:
+    vim.g.material_style = "oceanic"
+    require('material').setup({
+        styles = { -- Give comments style such as bold, italic, underline etc.
+            comments = { italic = true },
+            strings = { --[[ bold = true ]] },
+            keywords = { --[[ underline = true ]] },
+            functions = { --[[ bold = true, undercurl = true ]] },
+            variables = {},
+            operators = {},
+            types = {},
+        },
+
+        plugins = { -- Uncomment the plugins that you use to highlight them
+            -- Available plugins:
+            "gitsigns",
+            -- "nvim-tree",
+            "nvim-web-devicons",
+            "telescope",
+            "which-key",
+        },
+
+        disable = {
+            colored_cursor = false, -- Disable the colored cursor
+            borders = false, -- Disable borders between verticaly split windows
+            background = false, -- Prevent the theme from setting the background (NeoVim then uses your terminal background)
+            term_colors = false, -- Prevent the theme from setting terminal colors
+            eob_lines = false -- Hide the end-of-buffer lines
+        },
+
+        high_visibility = {
+            lighter = false, -- Enable higher contrast text for lighter style
+            darker = false -- Enable higher contrast text for darker style
+        },
+
+        lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+    })
+
+    vim.cmd 'colorscheme material'
+
+    -- vim.cmd [[let g:gruvbox_material_background = 'soft']]
+    -- vim.cmd([[ colorscheme gruvbox-material]])
 
     if packer_bootstrap then
         require('packer').sync()

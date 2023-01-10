@@ -150,6 +150,11 @@ _G.packer_plugins = {
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/gruvbox.nvim",
     url = "https://github.com/ellisonleao/gruvbox.nvim"
   },
+  ["kanagawa.nvim"] = {
+    loaded = true,
+    path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
+    url = "https://github.com/rebelot/kanagawa.nvim"
+  },
   ["litee.nvim"] = {
     loaded = true,
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/litee.nvim",
@@ -169,6 +174,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/mason.nvim",
     url = "https://github.com/williamboman/mason.nvim"
+  },
+  ["material.nvim"] = {
+    loaded = true,
+    path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/material.nvim",
+    url = "https://github.com/marko-cerovac/material.nvim"
   },
   nerdtree = {
     loaded = true,
@@ -212,10 +222,15 @@ _G.packer_plugins = {
     url = "https://github.com/kyazdani42/nvim-web-devicons"
   },
   ["octo.nvim"] = {
-    config = { "\27LJ\2\n2\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\tocto\frequire\0" },
+    config = { "\27LJ\2\n胐2\0\0\6\0\16\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\14\0005\3\f\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\4=\4\r\3=\3\15\2B\0\2\1K\0\1\0\rmappings\1\0\0\15submit_win\1\0\0\21close_review_tab\1\0\2\blhs\n<C-c>\tdesc\21close review tab\20request_changes\1\0\2\blhs\n<C-r>\tdesc\27request changes review\19comment_review\1\0\2\blhs\n<C-m>\tdesc\19comment review\19approve_review\1\0\0\1\0\2\blhs\n<C-b>\tdesc\19approve review\nsetup\tocto\frequire\0" },
     loaded = true,
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/octo.nvim",
     url = "https://github.com/pwntester/octo.nvim"
+  },
+  ["onedark.nvim"] = {
+    loaded = true,
+    path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/onedark.nvim",
+    url = "https://github.com/navarasu/onedark.nvim"
   },
   ["packer.nvim"] = {
     loaded = true,
@@ -228,7 +243,7 @@ _G.packer_plugins = {
     url = "https://github.com/nvim-lua/plenary.nvim"
   },
   ["rose-pine"] = {
-    config = { "\27LJ\2\n許1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\6\29disable_float_background\2\20bold_vert_split\1\20disable_italics\2\17dark_variant\tmoon\22dim_nc_background\2\23disable_background\1\nsetup\14rose-pine\frequire\0" },
+    config = { "\27LJ\2\n許1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\6\20disable_italics\2\17dark_variant\tmoon\22dim_nc_background\2\23disable_background\1\29disable_float_background\2\20bold_vert_split\1\nsetup\14rose-pine\frequire\0" },
     loaded = true,
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/rose-pine",
     url = "https://github.com/rose-pine/neovim"
@@ -242,6 +257,11 @@ _G.packer_plugins = {
     loaded = true,
     path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/telescope.nvim",
     url = "https://github.com/nvim-telescope/telescope.nvim"
+  },
+  ["vim-deus"] = {
+    loaded = true,
+    path = "/Users/rodrigoaraujo/.local/share/nvim/site/pack/packer/start/vim-deus",
+    url = "https://github.com/ajmwagar/vim-deus"
   },
   ["vim-fugitive"] = {
     loaded = true,
@@ -261,22 +281,22 @@ time([[Defining packer_plugins]], false)
 time([[Config for which-key.nvim]], true)
 try_loadstring("\27LJ\2\n;\0\0\3\0\3\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0004\2\0\0B\0\2\1K\0\1\0\nsetup\14which-key\frequire\0", "config", "which-key.nvim")
 time([[Config for which-key.nvim]], false)
--- Config for: rose-pine
-time([[Config for rose-pine]], true)
-try_loadstring("\27LJ\2\n許1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\6\29disable_float_background\2\20bold_vert_split\1\20disable_italics\2\17dark_variant\tmoon\22dim_nc_background\2\23disable_background\1\nsetup\14rose-pine\frequire\0", "config", "rose-pine")
-time([[Config for rose-pine]], false)
--- Config for: everforest-nvim
-time([[Config for everforest-nvim]], true)
-try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15everforest\frequire\0", "config", "everforest-nvim")
-time([[Config for everforest-nvim]], false)
--- Config for: octo.nvim
-time([[Config for octo.nvim]], true)
-try_loadstring("\27LJ\2\n2\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\tocto\frequire\0", "config", "octo.nvim")
-time([[Config for octo.nvim]], false)
 -- Config for: nvim-test
 time([[Config for nvim-test]], true)
 try_loadstring("\27LJ\2\n7\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\14nvim-test\frequire\0", "config", "nvim-test")
 time([[Config for nvim-test]], false)
+-- Config for: everforest-nvim
+time([[Config for everforest-nvim]], true)
+try_loadstring("\27LJ\2\n8\0\0\3\0\3\0\0066\0\0\0'\2\1\0B\0\2\0029\0\2\0B\0\1\1K\0\1\0\nsetup\15everforest\frequire\0", "config", "everforest-nvim")
+time([[Config for everforest-nvim]], false)
+-- Config for: rose-pine
+time([[Config for rose-pine]], true)
+try_loadstring("\27LJ\2\n許1\0\0\3\0\4\0\a6\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\3\0B\0\2\1K\0\1\0\1\0\6\20disable_italics\2\17dark_variant\tmoon\22dim_nc_background\2\23disable_background\1\29disable_float_background\2\20bold_vert_split\1\nsetup\14rose-pine\frequire\0", "config", "rose-pine")
+time([[Config for rose-pine]], false)
+-- Config for: octo.nvim
+time([[Config for octo.nvim]], true)
+try_loadstring("\27LJ\2\n胐2\0\0\6\0\16\0\0196\0\0\0'\2\1\0B\0\2\0029\0\2\0005\2\14\0005\3\f\0005\4\4\0005\5\3\0=\5\5\0045\5\6\0=\5\a\0045\5\b\0=\5\t\0045\5\n\0=\5\v\4=\4\r\3=\3\15\2B\0\2\1K\0\1\0\rmappings\1\0\0\15submit_win\1\0\0\21close_review_tab\1\0\2\blhs\n<C-c>\tdesc\21close review tab\20request_changes\1\0\2\blhs\n<C-r>\tdesc\27request changes review\19comment_review\1\0\2\blhs\n<C-m>\tdesc\19comment review\19approve_review\1\0\0\1\0\2\blhs\n<C-b>\tdesc\19approve review\nsetup\tocto\frequire\0", "config", "octo.nvim")
+time([[Config for octo.nvim]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then
