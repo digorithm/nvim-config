@@ -6,10 +6,11 @@ vim.opt.tabstop = 4
 vim.opt.softtabstop = 4
 vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
+vim.opt.cmdheight = 0
 
 vim.opt.smartindent = true
 
-vim.opt.wrap = false
+vim.opt.wrap = true
 
 vim.opt.swapfile = false
 vim.opt.backup = false
@@ -41,10 +42,16 @@ vim.keymap.set("n", "<C-u>", "<C-u>zz")
 vim.keymap.set("n", "n", "nzzzv")
 vim.keymap.set("n", "N", "Nzzzv")
 
-vim.keymap.set("n", "<C-t>", ":NERDTreeToggle<CR>")
-
 -- greatest remap ever
 vim.keymap.set("x", "<leader>p", [["_dP]])
+
+-- Git diffview stuff
+vim.keymap.set("n", "<space>gd", ":DiffviewOpen<CR>")
+vim.keymap.set("n", "<space>gc", ":DiffviewClose<CR>")
+
+
+-- Search and replace stuff with spectre.
+vim.keymap.set("n", "<leader>sr", ":lua require('spectre').open()<CR>")
 
 -- next greatest remap ever : asbjornHaland
 -- leader y to yank to system clipboard.
@@ -156,8 +163,6 @@ return require('packer').startup(function(use)
 
     use { 'stevearc/dressing.nvim' }
 
-    use 'scrooloose/nerdtree'
-
     use 'github/copilot.vim'
 
     use({
@@ -224,59 +229,7 @@ return require('packer').startup(function(use)
             require("everforest").setup()
         end,
     })
-
-    -- Github integration
-    require('litee.lib').setup()
-    require('litee.gh').setup({
-        -- deprecated, around for compatability for now.
-        jump_mode             = "invoking",
-        -- remap the arrow keys to resize any litee.nvim windows.
-        map_resize_keys       = false,
-        -- do not map any keys inside any gh.nvim buffers.
-        disable_keymaps       = false,
-        -- the icon set to use.
-        icon_set              = "default",
-        -- any custom icons to use.
-        icon_set_custom       = nil,
-        -- whether to register the @username and #issue_number omnifunc completion
-        -- in buffers which start with .git/
-        git_buffer_completion = true,
-        -- defines keymaps in gh.nvim buffers.
-        keymaps               = {
-            -- when inside a gh.nvim panel, this key will open a node if it has
-            -- any futher functionality. for example, hitting <CR> on a commit node
-            -- will open the commit's changed files in a new gh.nvim panel.
-            open = "<CR>",
-            -- when inside a gh.nvim panel, expand a collapsed node
-            expand = "zo",
-            -- when inside a gh.nvim panel, collpased and expanded node
-            collapse = "zc",
-            -- when cursor is over a "#1234" formatted issue or PR, open its details
-            -- and comments in a new tab.
-            goto_issue = "gd",
-            -- show any details about a node, typically, this reveals commit messages
-            -- and submitted review bodys.
-            details = "d",
-            -- inside a convo buffer, submit a comment
-            submit_comment = "<C-s>",
-            -- inside a convo buffer, when your cursor is ontop of a comment, open
-            -- up a set of actions that can be performed.
-            actions = "<C-b>",
-            -- inside a thread convo buffer, resolve the thread.
-            resolve_thread = "<C-r>",
-            -- inside a gh.nvim panel, if possible, open the node's web URL in your
-            -- browser. useful particularily for digging into external failed CI
-            -- checks.
-            goto_web = "gx"
-        }
-    })
-
-    -- Github integration
-    use {
-        'ldelossa/gh.nvim',
-        requires = { { 'ldelossa/litee.nvim' } }
-    }
-
+    use { 'sindrets/diffview.nvim', requires = 'nvim-lua/plenary.nvim' }
     use {
         "folke/which-key.nvim",
         config = function()
@@ -298,51 +251,6 @@ return require('packer').startup(function(use)
             o = {
                 name = "+Octo",
                 p = { name = "+Pull Request", l = { "<cmd>Octo pr list<cr>", "List" } },
-            },
-            h = {
-                name = "+Github gh.nvim",
-                c = {
-                    name = "+Commits",
-                    c = { "<cmd>GHCloseCommit<cr>", "Close" },
-                    e = { "<cmd>GHExpandCommit<cr>", "Expand" },
-                    o = { "<cmd>GHOpenToCommit<cr>", "Open To" },
-                    p = { "<cmd>GHPopOutCommit<cr>", "Pop Out" },
-                    z = { "<cmd>GHCollapseCommit<cr>", "Collapse" },
-                },
-                i = {
-                    name = "+Issues",
-                    p = { "<cmd>GHPreviewIssue<cr>", "Preview" },
-                },
-                l = {
-                    name = "+Litee",
-                    t = { "<cmd>LTPanel<cr>", "Toggle Panel" },
-                },
-                r = {
-                    name = "+Review",
-                    b = { "<cmd>GHStartReview<cr>", "Begin" },
-                    c = { "<cmd>GHCloseReview<cr>", "Close" },
-                    d = { "<cmd>GHDeleteReview<cr>", "Delete" },
-                    e = { "<cmd>GHExpandReview<cr>", "Expand" },
-                    s = { "<cmd>GHSubmitReview<cr>", "Submit" },
-                    z = { "<cmd>GHCollapseReview<cr>", "Collapse" },
-                },
-                p = {
-                    name = "+Pull Request",
-                    c = { "<cmd>GHClosePR<cr>", "Close" },
-                    d = { "<cmd>GHPRDetails<cr>", "Details" },
-                    e = { "<cmd>GHExpandPR<cr>", "Expand" },
-                    o = { "<cmd>GHOpenPR<cr>", "Open" },
-                    p = { "<cmd>GHPopOutPR<cr>", "PopOut" },
-                    r = { "<cmd>GHRefreshPR<cr>", "Refresh" },
-                    t = { "<cmd>GHOpenToPR<cr>", "Open To" },
-                    z = { "<cmd>GHCollapsePR<cr>", "Collapse" },
-                },
-                t = {
-                    name = "+Threads",
-                    c = { "<cmd>GHCreateThread<cr>", "Create" },
-                    n = { "<cmd>GHNextThread<cr>", "Next" },
-                    t = { "<cmd>GHToggleThread<cr>", "Toggle" },
-                },
             },
         },
     }, { prefix = "<leader>" })
@@ -415,13 +323,78 @@ return require('packer').startup(function(use)
             darker = false -- Enable higher contrast text for darker style
         },
 
-        lualine_style = "default", -- Lualine style ( can be 'stealth' or 'default' )
+        lualine_style = "stealth", -- Lualine style ( can be 'stealth' or 'default' )
+        custom_highlights = {
+            -- Modify  diff add highlight
+            DiffAdd = { bg = "#273732", },
+            DiffDelete = { bg = "#3F2D32", },
+            DiffChange = { bg = "#273732", },
+            DiffText = { bg = "#324741", },
+        }, -- Overwrite highlights
     })
 
     vim.cmd 'colorscheme material'
 
+    use 'tpope/vim-fugitive'
+
+    use {
+        'nvim-lualine/lualine.nvim',
+        requires = { 'kyazdani42/nvim-web-devicons', opt = true }
+    }
+    require('lualine').setup()
+
+    -- Sway configuration
+    -- Install Sway LSP as a custom	server
+    local lspconfig = require 'lspconfig'
+    local configs = require 'lspconfig.configs'
+
+    -- Check if the config is already defined (useful when reloading this file)
+    if not configs.sway_lsp then
+        configs.sway_lsp = {
+            default_config = {
+                cmd = { 'forc-lsp' },
+                filetypes = { 'sway' },
+                on_attach = on_attach,
+                root_dir = function(fname)
+                    return lspconfig.util.find_git_ancestor(fname)
+                end;
+                settings = {};
+            };
+        }
+    end
+
+    lspconfig.sway_lsp.setup {}
+
     -- vim.cmd [[let g:gruvbox_material_background = 'soft']]
     -- vim.cmd([[ colorscheme gruvbox-material]])
+
+    use 'windwp/nvim-spectre'
+
+    -- Unless you are still migrating, remove the deprecated commands from v1.x
+    vim.cmd([[ let g:neo_tree_remove_legacy_commands = 1 ]])
+
+    use {
+        "nvim-neo-tree/neo-tree.nvim",
+        branch = "v2.x",
+        requires = {
+            "nvim-lua/plenary.nvim",
+            "nvim-tree/nvim-web-devicons", -- not strictly required, but recommended
+            "MunifTanjim/nui.nvim",
+        }
+    }
+
+    require('neo-tree').setup {
+        filesystem = {
+            filtered_items = {
+                visible = true, -- This is what you want: If you set this to `true`, all "hide" just mean "dimmed out"
+                hide_dotfiles = false,
+                hide_gitignored = true,
+            },
+        },
+    }
+
+    -- toggle neo tree.
+    vim.api.nvim_set_keymap("n", "<C-t>", ":Neotree<CR>", { noremap = true, silent = true })
 
     if packer_bootstrap then
         require('packer').sync()
