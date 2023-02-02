@@ -129,8 +129,6 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
-    use('tpope/vim-fugitive')
-
     use 'neovim/nvim-lspconfig'
     use 'simrat39/rust-tools.nvim'
 
@@ -179,6 +177,12 @@ return require('packer').startup(function(use)
             })
         end,
     })
+
+    use 'voldikss/vim-floaterm'
+
+    use 'kdheepak/lazygit.nvim'
+
+    use { "shortcuts/no-neck-pain.nvim", tag = "*" }
 
     use "EdenEast/nightfox.nvim"
     use { "ellisonleao/gruvbox.nvim" }
@@ -395,6 +399,66 @@ return require('packer').startup(function(use)
 
     -- toggle neo tree.
     vim.api.nvim_set_keymap("n", "<C-t>", ":Neotree<CR>", { noremap = true, silent = true })
+
+    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
+
+    local neogit = require('neogit')
+
+    neogit.setup {}
+
+    use 'christoomey/vim-tmux-navigator'
+
+    use 'dcampos/nvim-snippy'
+    use 'honza/vim-snippets'
+
+    require('snippy').setup({
+        mappings = {
+            is = {
+                ['<Tab>'] = 'expand_or_advance',
+                ['<S-Tab>'] = 'previous',
+            },
+            nx = {
+                ['<leader>x'] = 'cut_text',
+            },
+        },
+    })
+
+    -- Noice plugin
+    use({
+        "folke/noice.nvim",
+        config = function()
+            require("noice").setup({
+                -- add any options here
+            })
+        end,
+        requires = {
+            -- if you lazy-load any plugin below, make sure to add proper `module="..."` entries
+            "MunifTanjim/nui.nvim",
+            -- OPTIONAL:
+            --   `nvim-notify` is only needed, if you want to use the notification view.
+            --   If not available, we use `mini` as the fallback
+            "rcarriga/nvim-notify",
+        }
+    })
+
+    require("noice").setup({
+        lsp = {
+            -- override markdown rendering so that **cmp** and other plugins use **Treesitter**
+            override = {
+                ["vim.lsp.util.convert_input_to_markdown_lines"] = true,
+                ["vim.lsp.util.stylize_markdown"] = true,
+                ["cmp.entry.get_documentation"] = true,
+            },
+        },
+        -- you can enable a preset for easier configuration
+        presets = {
+            bottom_search = true, -- use a classic bottom cmdline for search
+            command_palette = true, -- position the cmdline and popupmenu together
+            long_message_to_split = true, -- long messages will be sent to a split
+            inc_rename = false, -- enables an input dialog for inc-rename.nvim
+            lsp_doc_border = false, -- add a border to hover docs and signature help
+        },
+    })
 
     if packer_bootstrap then
         require('packer').sync()
