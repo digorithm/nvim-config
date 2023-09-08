@@ -8,6 +8,12 @@ vim.opt.shiftwidth = 4
 vim.opt.expandtab = true
 vim.opt.cmdheight = 0
 
+vim.opt.wrap = true
+vim.opt.linebreak = true
+
+-- vim option smart line break
+vim.opt.breakindent = true
+
 vim.opt.smartindent = true
 
 vim.opt.wrap = true
@@ -129,6 +135,8 @@ return require('packer').startup(function(use)
         requires = { { 'nvim-lua/plenary.nvim' } }
     }
 
+    use 'mfussenegger/nvim-dap'
+
     use 'neovim/nvim-lspconfig'
     use 'simrat39/rust-tools.nvim'
 
@@ -150,6 +158,9 @@ return require('packer').startup(function(use)
                     },
                     checkonsave = {
                         command = "clippy",
+                    },
+                    cargo = {
+                        allFeatures = true,
                     },
                 },
             },
@@ -185,7 +196,6 @@ return require('packer').startup(function(use)
     use { "shortcuts/no-neck-pain.nvim", tag = "*" }
 
     use "EdenEast/nightfox.nvim"
-    use { "ellisonleao/gruvbox.nvim" }
     use {
         'lewis6991/gitsigns.nvim',
         -- tag = 'release' -- To use the latest release (do not use this if you run Neovim nightly or dev builds!)
@@ -204,27 +214,8 @@ return require('packer').startup(function(use)
     }
 
     use 'jose-elias-alvarez/null-ls.nvim'
-    use 'sainnhe/gruvbox-material'
 
     -- use { 'sthendev/mariana.vim', run='make' }
-
-    require("gruvbox").setup({
-        undercurl = true,
-        underline = true,
-        bold = true,
-        italic = true,
-        strikethrough = true,
-        invert_selection = false,
-        invert_signs = false,
-        invert_tabline = false,
-        invert_intend_guides = false,
-        inverse = true, -- invert background for search, diffs, statuslines and errors
-        contrast = "soft", -- can be "hard", "soft" or empty string
-        palette_overrides = {},
-        overrides = {},
-        dim_inactive = false,
-        transparent_mode = false,
-    })
 
     use({
         "neanias/everforest-nvim",
@@ -244,6 +235,19 @@ return require('packer').startup(function(use)
             }
         end
     }
+
+    use({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        after = "nvim-web-devicons", -- keep this if you're using NvChad
+        config = function()
+            require("barbecue").setup()
+        end,
+    })
 
     local wk = require("which-key")
     wk.register({
@@ -337,7 +341,8 @@ return require('packer').startup(function(use)
         }, -- Overwrite highlights
     })
 
-    vim.cmd 'colorscheme material'
+    use { "catppuccin/nvim", as = "catppuccin" }
+    vim.cmd.colorscheme "catppuccin-frappe"
 
     use 'tpope/vim-fugitive'
 
@@ -398,13 +403,7 @@ return require('packer').startup(function(use)
     }
 
     -- toggle neo tree.
-    vim.api.nvim_set_keymap("n", "<C-t>", ":Neotree<CR>", { noremap = true, silent = true })
-
-    use { 'TimUntersberger/neogit', requires = 'nvim-lua/plenary.nvim' }
-
-    local neogit = require('neogit')
-
-    neogit.setup {}
+    vim.api.nvim_set_keymap("n", "<C-t>", ":Neotree toggle<CR>", { noremap = true, silent = true })
 
     use 'christoomey/vim-tmux-navigator'
 
@@ -421,6 +420,42 @@ return require('packer').startup(function(use)
                 ['<leader>x'] = 'cut_text',
             },
         },
+    })
+
+    -- Packer
+    use({
+        "jackMort/ChatGPT.nvim",
+        config = function()
+            require("chatgpt").setup()
+        end,
+        requires = {
+            "MunifTanjim/nui.nvim",
+            "nvim-lua/plenary.nvim",
+            "nvim-telescope/telescope.nvim"
+        }
+    })
+
+    -- Session manager
+    use 'Shatur/neovim-session-manager'
+
+
+    -- Code context like VSCode
+    use({
+        "utilyre/barbecue.nvim",
+        tag = "*",
+        requires = {
+            "SmiteshP/nvim-navic",
+            "nvim-tree/nvim-web-devicons", -- optional dependency
+        },
+        after = "nvim-web-devicons", -- keep this if you're using NvChad
+        config = function()
+            require("barbecue").setup({
+                ---Whether to show/use navic in the winbar.
+                ---
+                ---@type boolean
+                show_navic = true,
+            })
+        end,
     })
 
     -- Noice plugin
