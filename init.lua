@@ -55,7 +55,6 @@ vim.keymap.set("x", "<leader>p", [["_dP]])
 vim.keymap.set("n", "<space>gd", ":DiffviewOpen<CR>")
 vim.keymap.set("n", "<space>gc", ":DiffviewClose<CR>")
 
-
 -- Search and replace stuff with spectre.
 vim.keymap.set("n", "<leader>sr", ":lua require('spectre').open()<CR>")
 
@@ -86,8 +85,6 @@ vim.api.nvim_set_keymap("n", "gd", "<cmd>lua require('telescope.builtin').lsp_de
 -- Telescope jump to definition in a split window
 vim.api.nvim_set_keymap("n", "gds", "<cmd>lua require('telescope.builtin').lsp_definitions({ jump_type = 'vsplit' })<CR>"
     , { noremap = true, silent = true })
-
-
 
 -- Plugins
 local ensure_packer = function()
@@ -166,6 +163,7 @@ return require('packer').startup(function(use)
             },
         },
     }
+
     require('rust-tools').setup(opts)
     require('rust-tools').inlay_hints.enable()
     require('rust-tools').runnables.runnables()
@@ -437,7 +435,6 @@ return require('packer').startup(function(use)
 
     -- Session manager
     use 'Shatur/neovim-session-manager'
-
 
     -- Code context like VSCode
     use({
